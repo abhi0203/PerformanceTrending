@@ -1,0 +1,383 @@
+<html>
+<head>
+    <title>Sample Chart</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<!--<link rel="stylesheet" type="text/css" href="landingPage.css">-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+          google.charts.load('current',{packages:['corechart']});
+
+
+          google.charts.setOnLoadCallback(drawsqlSelectChart);
+          google.charts.setOnLoadCallback(drawsqlSelectTimeChart);
+
+          google.charts.setOnLoadCallback(drawsqlInsertChart);
+          google.charts.setOnLoadCallback(drawsqlInsertTimeChart);
+
+          google.charts.setOnLoadCallback(drawsqlUpdateChart);
+          google.charts.setOnLoadCallback(drawsqlUpdateTimeChart);
+
+          google.charts.setOnLoadCallback(drawsqlDeleteChart);
+          google.charts.setOnLoadCallback(drawsqlDeleteTimeChart);
+
+
+          
+          function drawsqlSelectChart(){
+        
+              var data= new google.visualization.DataTable();
+              data.addColumn('date', 'Date');
+              data.addColumn('number', 'SQL Count')
+
+		          rows={{data.selectCount| safe}};
+              for(i=0;i<rows.length;i++){
+                var dt= new Date(rows[i][0]);
+                data.addRow([dt,rows[i][1]])
+                console.log(data);
+              }
+
+        var options={title:'Select SQL Call Count',
+                     width:500,
+                     height:300,
+                     legend:'top',
+                     hAxis: {title: 'Date', format:'d-MMM',type: 'category'},
+                     vAxis: {title: 'SQL Count', minValue: 0, maxValue: 100000000,ticks: [{v: 200000000, f: '200M'}, {v: 400000000, f: '400M'}, {v: 600000000, f: '600M'}, {v:800000000, f: '800M'}]},
+                     colors: ['#15A0C8'],
+                     pointSize:5
+                   };
+     
+    // Instantiate and draw the chart for Sarah's pizza.
+        var chart = new google.visualization.AreaChart(document.getElementById('sqlSelectCountChart'));
+        chart.draw(data, options);
+      }
+
+
+      function drawsqlSelectTimeChart(){
+        
+        var data= new google.visualization.DataTable();
+        data.addColumn('date','Date');
+        data.addColumn('number','Average Response Time');
+        
+        rows={{data.selectResponseTime| safe}};
+        for(i=0;i<rows.length;i++){
+          var dt= new Date(rows[i][0]);
+          data.addRow([dt,rows[i][1]])
+        }
+        
+        var options= {
+          title:'Select Avg. Response Time',
+          width:500,
+          height:300,
+          hAxis: {title: 'Date', format:'d-MMM',type: 'category'},
+          vAxis: {title: 'Avg Response Time(ms)', minValue: 0, maxValue: 5},
+          legend:'top',
+          pointSize:5,
+          colors: ['#15A0C8'],
+          trendlines:{0:{type: 'liner', color:'#15A080',visibleInLegend: true}}
+        };
+        
+        var chart= new google.visualization.LineChart(document.getElementById('sqlSelectResponseTimeChart'));
+        chart.draw(data,options);
+        
+      }
+
+
+      /// Functions for plotting Insert Charts
+      function drawsqlInsertChart(){
+        
+              var data= new google.visualization.DataTable();
+              data.addColumn('date', 'Date');
+              data.addColumn('number', 'SQL Count')
+
+              rows={{data.insertCount| safe}};
+              for(i=0;i<rows.length;i++){
+                var dt= new Date(rows[i][0]);
+                data.addRow([dt,rows[i][1]])
+                console.log(data);
+              }
+
+        var options={title:'Insert SQL Call Count',
+                     width:500,
+                     height:300,
+                     legend:'top',
+                     hAxis: {title: 'Date', format:'d-MMM',type: 'category'},
+                     vAxis: {title: 'SQL Count', minValue: 0, maxValue: 10000000,ticks: [{v: 2500000, f: '2.5M'}, {v: 5000000, f: '5.0M'}, {v: 7500000, f: '7.5M'}, {v:10000000, f: '10M'}]},
+                     colors: ['#4151A3'],
+                     pointSize:5
+                   };
+     
+          var chart = new google.visualization.AreaChart(document.getElementById('sqlInsertCountChart'));
+        chart.draw(data, options);
+      }
+
+
+      function drawsqlInsertTimeChart(){
+        
+        var data= new google.visualization.DataTable();
+        data.addColumn('date','Date');
+        data.addColumn('number','Average Response Time');
+        
+        rows={{data.insertResponseTime| safe}};
+        for(i=0;i<rows.length;i++){
+          var dt= new Date(rows[i][0]);
+          data.addRow([dt,rows[i][1]])
+        }
+        
+        var options= {
+          title:'Insert Avg. Response Time',
+          width:500,
+          height:300,
+          hAxis: {title: 'Date', format:'d-MMM',type: 'category'},
+          vAxis: {title: 'Avg Response Time(ms)', minValue: 0, maxValue: 5},
+          legend:'top',
+          pointSize:5,
+          colors: ['#4151A3'],
+          trendlines:{0:{type: 'liner', color:'#415180',visibleInLegend: true}}
+        };
+        
+        var chart= new google.visualization.LineChart(document.getElementById('sqlInsertResponseTimeChart'));
+        chart.draw(data,options);
+        
+      }
+
+      // Functions for plotting Update Charts
+
+       function drawsqlUpdateChart(){
+        
+              var data= new google.visualization.DataTable();
+              data.addColumn('date', 'Date');
+              data.addColumn('number', 'SQL Count')
+
+              rows={{data.updateCount| safe}};
+              for(i=0;i<rows.length;i++){
+                var dt= new Date(rows[i][0]);
+                data.addRow([dt,rows[i][1]])
+                console.log(data);
+              }
+
+        var options={title:'Update SQL Call Count',
+                     width:500,
+                     height:300,
+                     legend:'top',
+                     hAxis: {title: 'Date', format:'d-MMM',type: 'category'},
+                     vAxis: {title: 'SQL Count', minValue: 0, maxValue: 500000,ticks: [{v: 150000, f: '150K'}, {v: 300000, f: '300K'}, {v: 450000, f: '450K'}, {v:600000, f: '600K'}]},
+                     colors: ['#703593'],
+                     pointSize:5
+                   };
+     
+        var chart = new google.visualization.AreaChart(document.getElementById('sqlUpdateCountChart'));
+        chart.draw(data, options);
+      }
+
+
+      function drawsqlUpdateTimeChart(){
+        
+        var data= new google.visualization.DataTable();
+        data.addColumn('date','Date');
+        data.addColumn('number','Average Response Time');
+        
+        rows={{data.updateResponseTime| safe}};
+        for(i=0;i<rows.length;i++){
+          var dt= new Date(rows[i][0]);
+          data.addRow([dt,rows[i][1]])
+        }
+        
+        var options= {
+          title:'Update Avg. Response Time',
+          width:500,
+          height:300,
+          hAxis: {title: 'Date', format:'d-MMM',type: 'category'},
+          vAxis: {title: 'Avg Response Time(ms)', minValue: 0, maxValue: 5},
+          legend:'top',
+          pointSize:5,
+          colors: ['#703593'],
+          trendlines:{0:{type: 'liner', color:'#703512',visibleInLegend: true}}
+        };
+        
+        var chart= new google.visualization.LineChart(document.getElementById('sqlUpdateResponseTimeChart'));
+        chart.draw(data,options);
+      }
+
+
+      // Functions for plotting Delete Charts
+
+       function drawsqlDeleteChart(){
+        
+              var data= new google.visualization.DataTable();
+              data.addColumn('date', 'Date');
+              data.addColumn('number', 'SQL Count')
+
+              rows={{data.deleteCount| safe}};
+              for(i=0;i<rows.length;i++){
+                var dt= new Date(rows[i][0]);
+                data.addRow([dt,rows[i][1]])
+                console.log(data);
+              }
+
+        var options={title:'Delete SQL Call Count',
+                     width:500,
+                     height:300,
+                     legend:'top',
+                     hAxis: {title: 'Date', format:'d-MMM',type: 'category'},
+                     vAxis: {title: 'SQL Count', minValue: 0, maxValue: 5000,ticks: [{v: 7500, f: '7.5K'}, {v:15000, f: '15K'}, {v:22500, f: '22.5K'}, {v:30000, f: '30K'}]},
+                     colors: ['#981B48'],
+                     pointSize:5
+                   };
+     
+        var chart = new google.visualization.AreaChart(document.getElementById('sqlDeleteCountChart'));
+        chart.draw(data, options);
+      }
+
+
+      function drawsqlDeleteTimeChart(){
+        
+        var data= new google.visualization.DataTable();
+        data.addColumn('date','Date');
+        data.addColumn('number','Average Response Time');
+        
+        rows={{data.deleteResponseTime| safe}};
+        for(i=0;i<rows.length;i++){
+          var dt= new Date(rows[i][0]);
+          data.addRow([dt,rows[i][1]])
+        }
+        
+        var options= {
+          title:'Delete Avg. Response Time',
+          width:500,
+          height:300,
+          hAxis: {title: 'Date', format:'d-MMM',type: 'category'},
+          vAxis: {title: 'Avg Response Time(ms)', minValue: 0, maxValue: 5},
+          legend:'top',
+          pointSize:5,
+          colors: ['#981B48'],
+          trendlines:{0:{type: 'liner', color:'#981B02',visibleInLegend: true}}
+        };
+        
+        var chart= new google.visualization.LineChart(document.getElementById('sqlDeleteResponseTimeChart'));
+        chart.draw(data,options);
+      }
+      
+  </script>
+</head>
+<body>
+  <!-- Identify where the chart should be drawn. -->
+  <!--Table and divs that hold the pie charts-->
+    <table class="columns">
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+
+ <nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="/">Home</a></li>
+        <li><a href="/memory">Memory</a></li>
+        <li><a class="navbar-brand active" href="/sql">SQL Data</a></li>
+        <li><a href="/transaction">Transactions</a></li>
+        <li><a href="/compare">Compare</a></li>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<div class="container">
+
+	<div class="jumbotron">
+		<h1><i aria-hidden="true"></i>SQL Data</h1>
+		  <p>SQL Call count and response time per release</p>
+	</div>
+
+	<div class="row">
+
+		<div class="col-md-6 col-sm-3">
+			<div class="thumbnail">
+				<div id="sqlSelectCountChart" style="border: 1px solid #ccc"></div>
+			</div>
+		</div>
+
+
+		<div class="col-md-6 col-sm-3">
+			<div class="thumbnail">
+				<div id="sqlSelectResponseTimeChart" style="border: 1px solid #ccc"></div>
+			</div>
+		</div>
+
+	</div> <!-- Row Dov Ends-->
+
+  <div class="row">
+
+    <div class="col-md-6 col-sm-3">
+      <div class="thumbnail">
+        <div id="sqlInsertCountChart" style="border: 1px solid #ccc"></div>
+      </div>
+    </div>
+
+
+    <div class="col-md-6 col-sm-3">
+      <div class="thumbnail">
+        <div id="sqlInsertResponseTimeChart" style="border: 1px solid #ccc"></div>
+      </div>
+    </div>
+
+  </div> <!-- Row Dov Ends-->
+
+
+  <div class="row">
+
+    <div class="col-md-6 col-sm-3">
+      <div class="thumbnail">
+        <div id="sqlUpdateCountChart" style="border: 1px solid #ccc"></div>
+      </div>
+    </div>
+
+
+    <div class="col-md-6 col-sm-3">
+      <div class="thumbnail">
+        <div id="sqlUpdateResponseTimeChart" style="border: 1px solid #ccc"></div>
+      </div>
+    </div>
+
+  </div> <!-- Row Dov Ends-->
+
+
+  <div class="row">
+
+    <div class="col-md-6 col-sm-3">
+      <div class="thumbnail">
+        <div id="sqlDeleteCountChart" style="border: 1px solid #ccc"></div>
+      </div>
+    </div>
+
+
+    <div class="col-md-6 col-sm-3">
+      <div class="thumbnail">
+        <div id="sqlDeleteResponseTimeChart" style="border: 1px solid #ccc"></div>
+      </div>
+    </div>
+
+  </div> <!-- Row Dov Ends-->
+
+
+
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>

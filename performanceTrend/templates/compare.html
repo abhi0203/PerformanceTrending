@@ -1,0 +1,77 @@
+<html>
+<head>
+    <title>Sample Chart</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<!--<link rel="stylesheet" type="text/css" href="landingPage.css">-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+</head>
+<body>
+  <!-- Identify where the chart should be drawn. -->
+  <!--Table and divs that hold the pie charts-->
+    <table class="columns">
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+
+ <nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="/">Home</a></li>
+        <li><a href="/memory">Memory</a></li>
+        <li><a href="/sql">SQL Data</a></li>
+        <li><a href="/transaction">Transactions</a></li>
+        <li><a class="navbar-brand active" href="/compare">Compare</a></li>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<div class="container">
+
+	<div class="jumbotron">
+		<h1><i aria-hidden="true"></i>Compare the results</h1>
+		  <p>Compare Results for 2 tests</p>
+	</div>
+
+	<div class="row">
+    <form action="/comparisonResults" method="post">  
+  		<div class="col-md-6 col-sm-3">
+  			
+          <label for="before">Before:</label>
+          <input id="before" type="text" name="before">
+        
+  		</div>
+
+
+  		<div class="col-md-6 col-sm-3">
+  			 <label for="after">After:</label>
+          <input id="after" type="text" name="after">
+  		</div>
+
+      <input type="submit" name="my-form" value="Compare">
+      </form>
+
+	</div> <!-- Row Dov Ends-->
+
+ 
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>

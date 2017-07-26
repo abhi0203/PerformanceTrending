@@ -1,0 +1,184 @@
+<html>
+<head>
+    <title>Sample Chart</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<!--<link rel="stylesheet" type="text/css" href="landingPage.css">-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+          google.charts.load('current',{packages:['corechart']});
+          google.charts.setOnLoadCallback(drawResponseTimeChart);
+          google.charts.setOnLoadCallback(drawplatformCPUChart);
+          google.charts.setOnLoadCallback(drawdbCPUChart);
+
+          
+          function drawResponseTimeChart(){
+        
+              var data= new google.visualization.DataTable();
+              data.addColumn('date', 'Date');
+              data.addColumn('number', 'ResponseTime')
+
+		          rows={{data.webTransactionResponseTime| safe}};
+              ticks=[];
+              for(i=0;i<rows.length;i++){
+                var dt= new Date(rows[i][0]);
+                ticks.push(dt);
+                data.addRow([dt,rows[i][1]])
+              }
+
+              var options={title:'Average Response Time ',
+                     width:1100,
+                     height:300,
+                     legend:'top',
+                     hAxis: {title: 'Date', format:'d-MMM',type: 'category'},
+                     pointSize:5,
+                     vAxis: {title: 'Response Time (ms)', minValue: 0, maxValue: 150},
+                     trendlines:{0:{type: 'liner', color:'green',visibleInLegend: true}}
+                   };
+     
+    // Instantiate and draw the chart for Sarah's pizza.
+        var chart = new google.visualization.ColumnChart(document.getElementById('responseTimeChart'));
+        chart.draw(data, options);
+      }
+
+
+      function drawplatformCPUChart(){
+        console.log("Inside CPU utilization");
+        var data= new google.visualization.DataTable();
+        data.addColumn('date','Date');
+        data.addColumn('number','stgplat01');
+        data.addColumn('number','stgplat02');
+        data.addColumn('number','stgplat03');
+        
+        rows={{data.platformCPUUtilization| safe}};
+        console.log(rows[0][0]);
+        for(i=0;i<rows.length;i++){
+          var dt= new Date(rows[i][0]);
+          console.log(dt);
+          data.addRow([dt,rows[i][1],rows[i][2],rows[i][3]])
+        }
+        
+        var options= {
+          title:'Platform CPU Utilization',
+          width:500,
+          height:300,
+          hAxis: {title: 'Date', format:'d-MMM',type: 'category'},
+          vAxis: {title: '% CPU Utilization', minValue: 0, maxValue: 100},
+          legend:'top',
+          pointSize:5
+        };
+        
+        var chart= new google.visualization.ColumnChart(document.getElementById('platformCPUChart'));
+        chart.draw(data,options);
+        
+      }
+
+
+
+      function drawdbCPUChart(){
+        console.log("Inside CPU utilization");
+        var data= new google.visualization.DataTable();
+        data.addColumn('date','Date');
+        data.addColumn('number','CPU-stgdb01');
+        //data.addColumn('number','CPU-stgdb02');
+        //data.addColumn('number','CPU-stgdb03');
+        
+        rows={{data.dbCPUUtilization| safe}};
+        console.log(rows[0][0]);
+        for(i=0;i<rows.length;i++){
+          var dt= new Date(rows[i][0]);
+          console.log(dt);
+          data.addRow([dt,rows[i][1]])
+        }
+        
+        var options= {
+          title:'DB CPU Utilization',
+          width:500,
+          height:300,
+          hAxis: {title: 'Date', format:'d-MMM',type: 'category'},
+          vAxis: {title: '% CPU Utilization', minValue: 0, maxValue: 100},
+          legend:'top',
+          pointSize:5
+        };
+        
+        var chart= new google.visualization.ColumnChart(document.getElementById('dbCPUChart'));
+        chart.draw(data,options);
+        
+      }
+  </script>
+</head>
+<body>
+  <!-- Identify where the chart should be drawn. -->
+  <!--Table and divs that hold the pie charts-->
+    <table class="columns">
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+
+ <nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="/">Home</a></li>
+        <li><a href="/memory">Memory</a></li>
+        <li><a href="/sql">SQL Data</a></li>
+        <li><a href="/transaction">Transactions</a></li>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<div class="container">
+
+	<div class="jumbotron">
+		<h3><i aria-hidden="true"></i>Performance Comparison</h3>
+	</div>
+
+	<div class="row">
+
+		<div class="col-md-12">
+			<div class="thumbnail">
+				<div id="responseTimeChart" style="border: 1px solid #ccc"></div>
+			</div>
+		</div>
+	</div> <!-- Row Dov Ends-->
+
+  <div class="row">
+
+    <div class="col-md-6 col-sm-3">
+      <div class="thumbnail">
+        <div id="platformCPUChart" style="border: 1px solid #ccc"></div>
+      </div>
+    </div>
+
+
+    <div class="col-md-6 col-sm-3">
+      <div class="thumbnail">
+        <div id="dbCPUChart" style="border: 1px solid #ccc"></div>
+      </div>
+    </div>
+
+  </div> <!-- Row Dov Ends-->
+
+
+
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>
